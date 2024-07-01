@@ -1,6 +1,6 @@
 import streamlit as st 
-st.set_page_config(page_title='page1', page_icon=':smily:')
-st.title('hello page1')
+st.set_page_config(page_title='page1', page_icon=':smiley:')
+st.subheader(':smiley: 1페이지 입니다.')
 
 import requests
 from bs4 import BeautifulSoup
@@ -21,15 +21,14 @@ data2['date'] = pd.to_datetime(data2['date'])
 #data3=pd.read_csv('시각화용2.csv')
 #data4=pd.concat([data2,data3['h_list']],axis=1)
 
-with st.sidebar:
-    sdt = st.date_input("시작일자를 선택하세요", pd.to_datetime("2005-01-01"),min_value=pd.to_datetime("2005-01-01"), max_value=pd.to_datetime("2020-12-31"))
-    edt = st.date_input("종료일자를 선택하세요", pd.to_datetime("2005-01-01"),min_value=pd.to_datetime("2005-01-01"), max_value=pd.to_datetime("2020-12-31"))
+
+
     
 
 col1, col2=st.columns(2)
-col1.write('극성 사전')
+col1.write('<극성 사전>')
 col1.dataframe(data)
-col2.write('극성점수 기준금리')
+col2.write('<극성점수 기준금리>')
 col2.dataframe(data2)
 
 
@@ -78,12 +77,13 @@ if search_word:
         st.line_chart(d2['base_rate'])
         
         
-
-   
+col3,col4=st.columns(2)
+sdt = col3.date_input("시작일자를 선택하세요", pd.to_datetime("2005-01-01"),min_value=pd.to_datetime("2005-01-01"), max_value=pd.to_datetime("2020-12-31"))
+edt = col4.date_input("종료일자를 선택하세요", pd.to_datetime("2005-01-01"),min_value=pd.to_datetime("2005-01-01"), max_value=pd.to_datetime("2020-12-31"))  
 
 if sdt and edt:
    
-    st.subheader("'기준금리'와 '극성점수' 변동 추이 (날짜를 선택해 주세요)")
+    st.subheader("해당 날짜 별 \'기준금리\'와 \'극성점수\' 변동 추이")
     filtered_data3 = data2[(data2['date'] >= pd.Timestamp(sdt)) & (data2['date'] <=  pd.Timestamp(edt))]
     chart_data = filtered_data3.set_index('date')[['base_rate', 's_score']]
     st.line_chart(chart_data)
@@ -105,8 +105,8 @@ fig, ax = plt.subplots(figsize=(10, 5))
 ax.scatter(data2['base_rate'], data2['s_score'])
 
 
-ax.set_xlabel('s_score')
-ax.set_ylabel('base_rate')
+ax.set_xlabel('base_rate')
+ax.set_ylabel('s_score')
 ax.set_title('Scatter Plot')
 
 # 그래프를 Streamlit 앱에 추가
@@ -114,7 +114,7 @@ st.pyplot(fig)
 
  
   
-st.write('토큰 시각화 실패')
+st.write('토큰 시각화')
 text_data = ' '.join(data['word'].astype(str).tolist())
 # 워드클라우드 설정 및 생성
 wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text_data)

@@ -1,6 +1,6 @@
 import streamlit as st 
-st.set_page_config(page_title='page2', page_icon=':smily:')
-st.title('2페이지 입니다^^')
+st.set_page_config(page_title='page2', page_icon=':smiley:')
+st.subheader(':smiley: 2페이지 입니다.')
 
 import streamlit as st
 import pandas as pd

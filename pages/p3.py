@@ -1,14 +1,13 @@
 import streamlit as st 
-st.set_page_config(page_title='page3', page_icon=':smily:')
-st.title('3페이지 입니다^^')
+st.set_page_config(page_title='page3', page_icon=':smiley:')
+st.subheader(':smiley: 3페이지 입니다.')
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib import rc
-import matplotlib.font_manager as fm
-from matplotlib.ticker import MaxNLocator
 import matplotlib.dates as mdates
+import datetime
 import streamlit as st
 # 폰트 설정
 rc("font", family="Malgun Gothic")
@@ -48,7 +47,13 @@ ax.set_ylabel('base_rate')
 plt.gca().set_facecolor('white')  # 축의 배경을 흰색으로 설정
 plt.xticks(rotation=45, ha='right')
 st.pyplot(fig)
-user_input = st.date_input('조회 일자 입력: ', pd.to_datetime('2005-06-09'))
+# 기본 날짜 설정
+default_date = datetime.date(2005, 6, 9)
+# 최소 날짜 설정
+min_date = datetime.date(2005, 6, 9)
+# 최대 날짜 설정
+max_date = datetime.date(2019, 11, 29)
+user_input = st.date_input('조회 일자 입력: ', default_date, min_value=min_date, max_value=max_date)
 # 입력받은 날짜의 기준금리 출력
 input_date = pd.to_datetime(user_input)
 # 날짜 형식을 맞추기 위해 일치하는 행을 찾기
